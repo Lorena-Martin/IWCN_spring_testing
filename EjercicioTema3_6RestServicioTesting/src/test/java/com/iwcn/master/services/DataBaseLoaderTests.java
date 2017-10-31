@@ -6,8 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.mockito.Mockito.when;
-//import static org.mockito.Mockito.times;
-//import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -66,7 +66,8 @@ public class DataBaseLoaderTests {
 		List<Producto> productos = dbloader.getTodos();
 		productos.add(p3);
 		when(productoRepository.findAll()).thenReturn(productos);
-//		dbloader.guardar(p3);
+		dbloader.guardar(p3);
+		verify(productoRepository, times(1)).save(p3);
 		assertEquals(dbloader.getTodos().size(), 3);
 		
 	}
@@ -78,7 +79,8 @@ public class DataBaseLoaderTests {
 		List<Producto> productos = dbloader.getTodos();
 		productos.remove(p1);
 		when(productoRepository.findAll()).thenReturn(productos);
-//		dbloader.borrar(p1);
+		dbloader.borrar(p1);
+		verify(productoRepository, times(1)).delete(p1);
 		assertEquals(dbloader.getTodos().size(), 1);
 		
 	}
